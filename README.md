@@ -11,6 +11,9 @@
   
 # Links
   [Official VKontakte group](https://vk.com/opengg64)
+  
   [Official Facebook group](https://www.facebook.com/groups/opengg64)
+  
   [Official Discord server](https://discord.gg/HwtRknD)
+  
   [Official YouTube channel](https://www.youtube.com/channel/UCVjCzkHhnOwy3fA5mFp9dbw)
