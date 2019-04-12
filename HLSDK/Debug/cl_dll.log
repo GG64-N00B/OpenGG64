@@ -1,0 +1,206 @@
+﻿Построение начато 09.01.2019 22:48:15.
+     1>Проект "C:\hl_src\opengg64\src_dll\cl_dll\cl_dll.vcxproj" в узле 2 (целевые объекты Rebuild).
+     1>ClCompile:
+         C:\Program Files (x86)\Microsoft Visual Studio 11.0\VC\bin\CL.exe /c /I..\dlls /I..\common /I..\pm_shared /I..\engine /I..\utils\vgui\include /I..\game_shared /ZI /nologo /W3 /WX- /Od /Oy- /D _DEBUG /D WIN32 /D _WINDOWS /D CLIENT_DLL /D CLIENT_WEAPONS /D _CRT_SECURE_NO_WARNINGS /D _CRT_NONSTDC_NO_DEPRECATE /D _VC80_UPGRADE=0x0600 /D _WINDLL /D _MBCS /Gm /EHsc /MTd /GS /fp:precise /Zc:wchar_t /Zc:forScope /GR /Fo".\Debug/" /Fd".\Debug/vc110.pdb" /FR".\Debug\\" /Gd /TP /wd4482 /analyze- /errorReport:prompt ammo.cpp ammo_secondary.cpp ammohistory.cpp battery.cpp cdll_int.cpp com_weapons.cpp death.cpp demo.cpp entity.cpp ev_common.cpp events.cpp flashlight.cpp GameStudioModelRenderer.cpp geiger.cpp health.cpp hud.cpp hud_msg.cpp hud_redraw.cpp hud_servers.cpp hud_spectator.cpp hud_update.cpp in_camera.cpp input.cpp inputw32.cpp menu.cpp message.cpp parsemsg.cpp saytext.cpp status_icons.cpp statusbar.cpp studio_util.cpp StudioModelRenderer.cpp text_message.cpp train.cpp tri.cpp util.cpp ..\game_shared\vgui_checkbutton2.cpp vgui_ClassMenu.cpp vgui_ConsolePanel.cpp vgui_ControlConfigPanel.cpp vgui_CustomObjects.cpp ..\game_shared\vgui_grid.cpp ..\game_shared\vgui_helpers.cpp vgui_int.cpp ..\game_shared\vgui_listbox.cpp ..\game_shared\vgui_loadtga.cpp vgui_MOTDWindow.cpp vgui_SchemeManager.cpp vgui_ScorePanel.cpp vgui_ServerBrowser.cpp vgui_SpectatorPanel.cpp vgui_TeamFortressViewport.cpp vgui_teammenu.cpp view.cpp ..\dlls\crossbow.cpp ..\dlls\crowbar.cpp ..\dlls\egon.cpp ev_hldm.cpp ..\dlls\gauss.cpp ..\dlls\handgrenade.cpp hl\hl_baseentity.cpp hl\hl_events.cpp hl\hl_objects.cpp hl\hl_weapons.cpp ..\dlls\wpn_shared\hl_wpn_glock.cpp ..\dlls\hornetgun.cpp ..\common\interface.cpp ..\dlls\mp5.cpp ..\dlls\python.cpp ..\dlls\rpg.cpp ..\dlls\satchel.cpp ..\dlls\shotgun.cpp ..\dlls\squeakgrenade.cpp ..\dlls\tripmine.cpp ..\game_shared\vgui_scrollbar2.cpp ..\game_shared\vgui_slider2.cpp ..\game_shared\voice_banmgr.cpp ..\game_shared\voice_status.cpp
+         voice_status.cpp
+         voice_banmgr.cpp
+         vgui_slider2.cpp
+         vgui_scrollbar2.cpp
+         tripmine.cpp
+         squeakgrenade.cpp
+         shotgun.cpp
+         satchel.cpp
+         rpg.cpp
+         python.cpp
+         mp5.cpp
+         interface.cpp
+         hornetgun.cpp
+         hl_wpn_glock.cpp
+         hl_weapons.cpp
+         hl_objects.cpp
+         hl_events.cpp
+         hl_baseentity.cpp
+         handgrenade.cpp
+         gauss.cpp
+         Создание кода...
+         Компиляция...
+         ev_hldm.cpp
+     1>c:\hl_src\opengg64\src_dll\common\com_model.h(267): warning C4200: нестандартное расширение: массив нулевого размера в структуре (объединении)
+                 Невозможно создать конструктор копии или оператор присвоения копии, когда UDT содержит массив нулевого размера
+     1>c:\hl_src\opengg64\src_dll\cl_dll\ev_hldm.cpp(1451): warning C4005: ARRAYSIZE: изменение макроопределения
+                 c:\program files (x86)\windows kits\8.0\include\um\winnt.h(1182): см. предыдущее определение "ARRAYSIZE"
+         egon.cpp
+         crowbar.cpp
+         crossbow.cpp
+         view.cpp
+     1>c:\hl_src\opengg64\src_dll\common\com_model.h(267): warning C4200: нестандартное расширение: массив нулевого размера в структуре (объединении)
+                 Невозможно создать конструктор копии или оператор присвоения копии, когда UDT содержит массив нулевого размера
+         vgui_teammenu.cpp
+         vgui_TeamFortressViewport.cpp
+         vgui_SpectatorPanel.cpp
+         vgui_ServerBrowser.cpp
+         vgui_ScorePanel.cpp
+         vgui_SchemeManager.cpp
+         vgui_MOTDWindow.cpp
+         vgui_loadtga.cpp
+         vgui_listbox.cpp
+         vgui_int.cpp
+         vgui_helpers.cpp
+         vgui_grid.cpp
+         vgui_CustomObjects.cpp
+         vgui_ControlConfigPanel.cpp
+         vgui_ConsolePanel.cpp
+         Создание кода...
+         Компиляция...
+         vgui_ClassMenu.cpp
+         vgui_checkbutton2.cpp
+         util.cpp
+         tri.cpp
+         train.cpp
+         text_message.cpp
+         StudioModelRenderer.cpp
+     1>c:\hl_src\opengg64\src_dll\common\com_model.h(267): warning C4200: нестандартное расширение: массив нулевого размера в структуре (объединении)
+                 Невозможно создать конструктор копии или оператор присвоения копии, когда UDT содержит массив нулевого размера
+         studio_util.cpp
+     1>c:\hl_src\opengg64\src_dll\common\com_model.h(267): warning C4200: нестандартное расширение: массив нулевого размера в структуре (объединении)
+                 Невозможно создать конструктор копии или оператор присвоения копии, когда UDT содержит массив нулевого размера
+         statusbar.cpp
+         status_icons.cpp
+         saytext.cpp
+         parsemsg.cpp
+         message.cpp
+         menu.cpp
+         inputw32.cpp
+         input.cpp
+         in_camera.cpp
+         hud_update.cpp
+         hud_spectator.cpp
+     1>c:\hl_src\opengg64\src_dll\common\com_model.h(267): warning C4200: нестандартное расширение: массив нулевого размера в структуре (объединении)
+                 Невозможно создать конструктор копии или оператор присвоения копии, когда UDT содержит массив нулевого размера
+         hud_servers.cpp
+         Создание кода...
+         Компиляция...
+         hud_redraw.cpp
+         hud_msg.cpp
+         hud.cpp
+         health.cpp
+         geiger.cpp
+         GameStudioModelRenderer.cpp
+     1>c:\hl_src\opengg64\src_dll\common\com_model.h(267): warning C4200: нестандартное расширение: массив нулевого размера в структуре (объединении)
+                 Невозможно создать конструктор копии или оператор присвоения копии, когда UDT содержит массив нулевого размера
+         flashlight.cpp
+         events.cpp
+         ev_common.cpp
+         entity.cpp
+     1>c:\hl_src\opengg64\src_dll\cl_dll\entity.cpp(277): warning C4800: float: принудительно задано логическое значение "true" или "false" (предупреждение о производительности)
+         demo.cpp
+         death.cpp
+         com_weapons.cpp
+         cdll_int.cpp
+         battery.cpp
+         ammohistory.cpp
+         ammo_secondary.cpp
+         ammo.cpp
+         Создание кода...
+         C:\Program Files (x86)\Microsoft Visual Studio 11.0\VC\bin\CL.exe /c /I..\dlls /I..\common /I..\pm_shared /I..\engine /I..\utils\vgui\include /I..\game_shared /ZI /nologo /W3 /WX- /Od /Oy- /D _DEBUG /D WIN32 /D _WINDOWS /D CLIENT_DLL /D CLIENT_WEAPONS /D _CRT_SECURE_NO_WARNINGS /D _CRT_NONSTDC_NO_DEPRECATE /D _VC80_UPGRADE=0x0600 /D _WINDLL /D _MBCS /Gm /EHsc /MTd /GS /fp:precise /Zc:wchar_t /Zc:forScope /GR /Fo".\Debug/" /Fd".\Debug/vc110.pdb" /FR".\Debug\\" /Gd /TC /wd4482 /analyze- /errorReport:prompt ..\pm_shared\pm_debug.c ..\pm_shared\pm_math.c ..\pm_shared\pm_shared.c
+         pm_shared.c
+         pm_math.c
+         pm_debug.c
+         Создание кода...
+       ResourceCompile:
+         C:\Program Files (x86)\Windows Kits\8.0\bin\x86\rc.exe /D _DEBUG /D _VC80_UPGRADE=0x0600 /l"0x0409" /nologo /fo".\Debug\cl_dll.res" cl_dll.rc 
+     1>C:\Program Files (x86)\MSBuild\Microsoft.Cpp\v4.0\V110\Microsoft.CppBuild.targets(1137,5): warning MSB8012: TargetPath(C:\hl_src\opengg64\src_dll\cl_dll\.\Debug\cl_dll.dll) does not match the Linker's OutputFile property value (C:\hl_src\opengg64\src_dll\cl_dll\Debug\client.dll). This may cause your project to build incorrectly. To correct this, please make sure that $(OutDir), $(TargetName) and $(TargetExt) property values match the value specified in %(Link.OutputFile).
+     1>C:\Program Files (x86)\MSBuild\Microsoft.Cpp\v4.0\V110\Microsoft.CppBuild.targets(1139,5): warning MSB8012: TargetName(cl_dll) does not match the Linker's OutputFile property value (client). This may cause your project to build incorrectly. To correct this, please make sure that $(OutDir), $(TargetName) and $(TargetExt) property values match the value specified in %(Link.OutputFile).
+       Link:
+         C:\Program Files (x86)\Microsoft Visual Studio 11.0\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:".\Debug\client.dll" /INCREMENTAL /NOLOGO odbc32.lib odbccp32.lib winmm.lib ../utils/vgui/lib/win32_vc6/vgui.lib wsock32.lib kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:".\Debug/client.pdb" /SUBSYSTEM:WINDOWS /TLBID:1 /DYNAMICBASE:NO /IMPLIB:".\Debug/client.lib" /MACHINE:X86 /SAFESEH /DLL .\Debug\cl_dll.res
+         .\Debug/ammo.obj
+         .\Debug/ammo_secondary.obj
+         .\Debug/ammohistory.obj
+         .\Debug/battery.obj
+         .\Debug/cdll_int.obj
+         .\Debug/com_weapons.obj
+         .\Debug/death.obj
+         .\Debug/demo.obj
+         .\Debug/entity.obj
+         .\Debug/ev_common.obj
+         .\Debug/events.obj
+         .\Debug/flashlight.obj
+         .\Debug/GameStudioModelRenderer.obj
+         .\Debug/geiger.obj
+         .\Debug/health.obj
+         .\Debug/hud.obj
+         .\Debug/hud_msg.obj
+         .\Debug/hud_redraw.obj
+         .\Debug/hud_servers.obj
+         .\Debug/hud_spectator.obj
+         .\Debug/hud_update.obj
+         .\Debug/in_camera.obj
+         .\Debug/input.obj
+         .\Debug/inputw32.obj
+         .\Debug/menu.obj
+         .\Debug/message.obj
+         .\Debug/parsemsg.obj
+         .\Debug/pm_debug.obj
+         .\Debug/pm_math.obj
+         .\Debug/pm_shared.obj
+         .\Debug/saytext.obj
+         .\Debug/status_icons.obj
+         .\Debug/statusbar.obj
+         .\Debug/studio_util.obj
+         .\Debug/StudioModelRenderer.obj
+         .\Debug/text_message.obj
+         .\Debug/train.obj
+         .\Debug/tri.obj
+         .\Debug/util.obj
+         .\Debug/vgui_checkbutton2.obj
+         .\Debug/vgui_ClassMenu.obj
+         .\Debug/vgui_ConsolePanel.obj
+         .\Debug/vgui_ControlConfigPanel.obj
+         .\Debug/vgui_CustomObjects.obj
+         .\Debug/vgui_grid.obj
+         .\Debug/vgui_helpers.obj
+         .\Debug/vgui_int.obj
+         .\Debug/vgui_listbox.obj
+         .\Debug/vgui_loadtga.obj
+         .\Debug/vgui_MOTDWindow.obj
+         .\Debug/vgui_SchemeManager.obj
+         .\Debug/vgui_ScorePanel.obj
+         .\Debug/vgui_ServerBrowser.obj
+         .\Debug/vgui_SpectatorPanel.obj
+         .\Debug/vgui_TeamFortressViewport.obj
+         .\Debug/vgui_teammenu.obj
+         .\Debug/view.obj
+         .\Debug/crossbow.obj
+         .\Debug/crowbar.obj
+         .\Debug/egon.obj
+         .\Debug/ev_hldm.obj
+         .\Debug/gauss.obj
+         .\Debug/handgrenade.obj
+         .\Debug/hl_baseentity.obj
+         .\Debug/hl_events.obj
+         .\Debug/hl_objects.obj
+         .\Debug/hl_weapons.obj
+         .\Debug/hl_wpn_glock.obj
+         .\Debug/hornetgun.obj
+         .\Debug/interface.obj
+         .\Debug/mp5.obj
+         .\Debug/python.obj
+         .\Debug/rpg.obj
+         .\Debug/satchel.obj
+         .\Debug/shotgun.obj
+         .\Debug/squeakgrenade.obj
+         .\Debug/tripmine.obj
+         .\Debug/vgui_scrollbar2.obj
+         .\Debug/vgui_slider2.obj
+         .\Debug/voice_banmgr.obj
+         .\Debug/voice_status.obj
+     1>ammo.obj : warning LNK4075: не учитывается "/EDITANDCONTINUE" из-за спецификации "/SAFESEH"
+            Создается библиотека .\Debug/client.lib и объект .\Debug/client.exp
+         cl_dll.vcxproj -> C:\hl_src\opengg64\src_dll\cl_dll\.\Debug\cl_dll.dll
+       BscMake:
+         C:\Program Files (x86)\Microsoft Visual Studio 11.0\VC\bin\bscmake.exe /nologo /o".\Debug/cl_dll.bsc" .\Debug\ammo.sbr .\Debug\ammo_secondary.sbr .\Debug\ammohistory.sbr .\Debug\battery.sbr .\Debug\cdll_int.sbr .\Debug\com_weapons.sbr .\Debug\death.sbr .\Debug\demo.sbr .\Debug\entity.sbr .\Debug\ev_common.sbr .\Debug\events.sbr .\Debug\flashlight.sbr .\Debug\GameStudioModelRenderer.sbr .\Debug\geiger.sbr .\Debug\health.sbr .\Debug\hud.sbr .\Debug\hud_msg.sbr .\Debug\hud_redraw.sbr .\Debug\hud_servers.sbr .\Debug\hud_spectator.sbr .\Debug\hud_update.sbr .\Debug\in_camera.sbr .\Debug\input.sbr .\Debug\inputw32.sbr .\Debug\menu.sbr .\Debug\message.sbr .\Debug\parsemsg.sbr .\Debug\pm_debug.sbr .\Debug\pm_math.sbr .\Debug\pm_shared.sbr .\Debug\saytext.sbr .\Debug\status_icons.sbr .\Debug\statusbar.sbr .\Debug\studio_util.sbr .\Debug\StudioModelRenderer.sbr .\Debug\text_message.sbr .\Debug\train.sbr .\Debug\tri.sbr .\Debug\util.sbr .\Debug\vgui_checkbutton2.sbr .\Debug\vgui_ClassMenu.sbr .\Debug\vgui_ConsolePanel.sbr .\Debug\vgui_ControlConfigPanel.sbr .\Debug\vgui_CustomObjects.sbr .\Debug\vgui_grid.sbr .\Debug\vgui_helpers.sbr .\Debug\vgui_int.sbr .\Debug\vgui_listbox.sbr .\Debug\vgui_loadtga.sbr .\Debug\vgui_MOTDWindow.sbr .\Debug\vgui_SchemeManager.sbr .\Debug\vgui_ScorePanel.sbr .\Debug\vgui_ServerBrowser.sbr .\Debug\vgui_SpectatorPanel.sbr .\Debug\vgui_TeamFortressViewport.sbr .\Debug\vgui_teammenu.sbr .\Debug\view.sbr .\Debug\crossbow.sbr .\Debug\crowbar.sbr .\Debug\egon.sbr .\Debug\ev_hldm.sbr .\Debug\gauss.sbr .\Debug\handgrenade.sbr .\Debug\hl_baseentity.sbr .\Debug\hl_events.sbr .\Debug\hl_objects.sbr .\Debug\hl_weapons.sbr .\Debug\hl_wpn_glock.sbr .\Debug\hornetgun.sbr .\Debug\interface.sbr .\Debug\mp5.sbr .\Debug\python.sbr .\Debug\rpg.sbr .\Debug\satchel.sbr .\Debug\shotgun.sbr .\Debug\squeakgrenade.sbr .\Debug\tripmine.sbr .\Debug\vgui_scrollbar2.sbr .\Debug\vgui_slider2.sbr .\Debug\voice_banmgr.sbr .\Debug\voice_status.sbr
+     1>Построение проекта "C:\hl_src\opengg64\src_dll\cl_dll\cl_dll.vcxproj" завершено (целевые объекты Rebuild).
+
+Построение успешно завершено.
+
+Затраченное время: 00:01:24.93

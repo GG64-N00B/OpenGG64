@@ -1,0 +1,209 @@
+﻿Построение начато 12.12.2018 0:56:05.
+     1>Проект "C:\hl_src\opengg64\src_dll\cl_dll\cl_dll.vcxproj" в узле 2 (целевые объекты Rebuild).
+     1>ClCompile:
+         C:\Program Files (x86)\Microsoft Visual Studio 11.0\VC\bin\CL.exe /c /I..\utils\vgui\include /I..\engine /I..\common /I..\pm_shared /I..\dlls /Zi /nologo /W3 /WX- /O2 /Ob1 /Oy- /D WIN32 /D NDEBUG /D _WINDOWS /D CLIENT_DLL /D CLIENT_WEAPONS /D _CRT_SECURE_NO_WARNINGS /D _CRT_NONSTDC_NO_DEPRECATE /D _VC80_UPGRADE=0x0600 /D _WINDLL /GF /Gm- /EHsc /MT /GS /Gy /fp:precise /Zc:wchar_t /Zc:forScope /Fo".\Release/" /Fd".\Release/vc110.pdb" /Gd /TP /wd4482 /analyze- /errorReport:prompt ammo.cpp ammo_secondary.cpp ammohistory.cpp battery.cpp cdll_int.cpp com_weapons.cpp death.cpp demo.cpp entity.cpp ev_common.cpp events.cpp flashlight.cpp GameStudioModelRenderer.cpp geiger.cpp health.cpp hud.cpp hud_msg.cpp hud_redraw.cpp hud_servers.cpp hud_spectator.cpp hud_update.cpp in_camera.cpp input.cpp inputw32.cpp menu.cpp message.cpp parsemsg.cpp saytext.cpp status_icons.cpp statusbar.cpp studio_util.cpp StudioModelRenderer.cpp text_message.cpp train.cpp tri.cpp util.cpp ..\game_shared\vgui_checkbutton2.cpp vgui_ClassMenu.cpp vgui_ConsolePanel.cpp vgui_ControlConfigPanel.cpp vgui_CustomObjects.cpp ..\game_shared\vgui_grid.cpp ..\game_shared\vgui_helpers.cpp vgui_int.cpp ..\game_shared\vgui_listbox.cpp ..\game_shared\vgui_loadtga.cpp vgui_MOTDWindow.cpp vgui_SchemeManager.cpp vgui_ScorePanel.cpp vgui_ServerBrowser.cpp vgui_SpectatorPanel.cpp vgui_TeamFortressViewport.cpp vgui_teammenu.cpp view.cpp ..\dlls\crossbow.cpp ..\dlls\crowbar.cpp ..\dlls\egon.cpp ev_hldm.cpp ..\dlls\gauss.cpp ..\dlls\handgrenade.cpp hl\hl_baseentity.cpp hl\hl_events.cpp hl\hl_objects.cpp hl\hl_weapons.cpp ..\dlls\wpn_shared\hl_wpn_glock.cpp ..\dlls\hornetgun.cpp ..\common\interface.cpp ..\dlls\mp5.cpp ..\dlls\python.cpp ..\dlls\rpg.cpp ..\dlls\satchel.cpp ..\dlls\shotgun.cpp ..\dlls\squeakgrenade.cpp ..\dlls\tripmine.cpp ..\game_shared\vgui_scrollbar2.cpp ..\game_shared\vgui_slider2.cpp ..\game_shared\voice_banmgr.cpp ..\game_shared\voice_status.cpp
+         ammo.cpp
+         ammo_secondary.cpp
+         ammohistory.cpp
+         battery.cpp
+         cdll_int.cpp
+         com_weapons.cpp
+         death.cpp
+         demo.cpp
+         entity.cpp
+     1>entity.cpp(263): warning C4800: float: принудительно задано логическое значение "true" или "false" (предупреждение о производительности)
+         ev_common.cpp
+         events.cpp
+         flashlight.cpp
+         GameStudioModelRenderer.cpp
+     1>C:\hl_src\opengg64\src_dll\common\com_model.h(267): warning C4200: нестандартное расширение: массив нулевого размера в структуре (объединении)
+                 Невозможно создать конструктор копии или оператор присвоения копии, когда UDT содержит массив нулевого размера
+         geiger.cpp
+         health.cpp
+         hud.cpp
+         hud_msg.cpp
+         hud_redraw.cpp
+         hud_servers.cpp
+         hud_spectator.cpp
+     1>C:\hl_src\opengg64\src_dll\common\com_model.h(267): warning C4200: нестандартное расширение: массив нулевого размера в структуре (объединении)
+                 Невозможно создать конструктор копии или оператор присвоения копии, когда UDT содержит массив нулевого размера
+         Создание кода...
+         Компиляция...
+         hud_update.cpp
+         in_camera.cpp
+         input.cpp
+         inputw32.cpp
+         menu.cpp
+         message.cpp
+         parsemsg.cpp
+         saytext.cpp
+         status_icons.cpp
+         statusbar.cpp
+         studio_util.cpp
+     1>C:\hl_src\opengg64\src_dll\common\com_model.h(267): warning C4200: нестандартное расширение: массив нулевого размера в структуре (объединении)
+                 Невозможно создать конструктор копии или оператор присвоения копии, когда UDT содержит массив нулевого размера
+         StudioModelRenderer.cpp
+     1>C:\hl_src\opengg64\src_dll\common\com_model.h(267): warning C4200: нестандартное расширение: массив нулевого размера в структуре (объединении)
+                 Невозможно создать конструктор копии или оператор присвоения копии, когда UDT содержит массив нулевого размера
+         text_message.cpp
+         train.cpp
+         tri.cpp
+         util.cpp
+         vgui_checkbutton2.cpp
+         vgui_ClassMenu.cpp
+         vgui_ConsolePanel.cpp
+         vgui_ControlConfigPanel.cpp
+         Создание кода...
+         Компиляция...
+         vgui_CustomObjects.cpp
+         vgui_grid.cpp
+         vgui_helpers.cpp
+         vgui_int.cpp
+         vgui_listbox.cpp
+         vgui_loadtga.cpp
+         vgui_MOTDWindow.cpp
+         vgui_SchemeManager.cpp
+         vgui_ScorePanel.cpp
+         vgui_ServerBrowser.cpp
+         vgui_SpectatorPanel.cpp
+         vgui_TeamFortressViewport.cpp
+         vgui_teammenu.cpp
+         view.cpp
+     1>C:\hl_src\opengg64\src_dll\common\com_model.h(267): warning C4200: нестандартное расширение: массив нулевого размера в структуре (объединении)
+                 Невозможно создать конструктор копии или оператор присвоения копии, когда UDT содержит массив нулевого размера
+         crossbow.cpp
+         crowbar.cpp
+         egon.cpp
+         ev_hldm.cpp
+     1>C:\hl_src\opengg64\src_dll\common\com_model.h(267): warning C4200: нестандартное расширение: массив нулевого размера в структуре (объединении)
+                 Невозможно создать конструктор копии или оператор присвоения копии, когда UDT содержит массив нулевого размера
+     1>ev_hldm.cpp(1451): warning C4005: ARRAYSIZE: изменение макроопределения
+                 C:\Program Files (x86)\Windows Kits\8.0\Include\um\winnt.h(1182): см. предыдущее определение "ARRAYSIZE"
+         gauss.cpp
+         handgrenade.cpp
+         Создание кода...
+         Компиляция...
+         hl_baseentity.cpp
+         hl_events.cpp
+         hl_objects.cpp
+         hl_weapons.cpp
+         hl_wpn_glock.cpp
+         hornetgun.cpp
+         interface.cpp
+         mp5.cpp
+         python.cpp
+         rpg.cpp
+         satchel.cpp
+         shotgun.cpp
+         squeakgrenade.cpp
+         tripmine.cpp
+         vgui_scrollbar2.cpp
+         vgui_slider2.cpp
+         voice_banmgr.cpp
+         voice_status.cpp
+         Создание кода...
+         C:\Program Files (x86)\Microsoft Visual Studio 11.0\VC\bin\CL.exe /c /I..\utils\vgui\include /I..\engine /I..\common /I..\pm_shared /I..\dlls /Zi /nologo /W3 /WX- /O2 /Ob1 /Oy- /D WIN32 /D NDEBUG /D _WINDOWS /D CLIENT_DLL /D CLIENT_WEAPONS /D _CRT_SECURE_NO_WARNINGS /D _CRT_NONSTDC_NO_DEPRECATE /D _VC80_UPGRADE=0x0600 /D _WINDLL /GF /Gm- /EHsc /MT /GS /Gy /fp:precise /Zc:wchar_t /Zc:forScope /Fo".\Release/" /Fd".\Release/vc110.pdb" /Gd /TC /wd4482 /analyze- /errorReport:prompt ..\pm_shared\pm_debug.c ..\pm_shared\pm_math.c ..\pm_shared\pm_shared.c
+         pm_debug.c
+         pm_math.c
+         pm_shared.c
+         Создание кода...
+       ResourceCompile:
+         C:\Program Files (x86)\Windows Kits\8.0\bin\x86\rc.exe /D NDEBUG /D _VC80_UPGRADE=0x0600 /l"0x0409" /nologo /fo".\Release\cl_dll.res" cl_dll.rc 
+     1>C:\Program Files (x86)\MSBuild\Microsoft.Cpp\v4.0\V110\Microsoft.CppBuild.targets(1137,5): warning MSB8012: TargetPath(C:\hl_src\opengg64\src_dll\cl_dll\.\Release\cl_dll.dll) does not match the Linker's OutputFile property value (C:\hl_src\opengg64\src_dll\cl_dll\Release\client.dll). This may cause your project to build incorrectly. To correct this, please make sure that $(OutDir), $(TargetName) and $(TargetExt) property values match the value specified in %(Link.OutputFile).
+     1>C:\Program Files (x86)\MSBuild\Microsoft.Cpp\v4.0\V110\Microsoft.CppBuild.targets(1139,5): warning MSB8012: TargetName(cl_dll) does not match the Linker's OutputFile property value (client). This may cause your project to build incorrectly. To correct this, please make sure that $(OutDir), $(TargetName) and $(TargetExt) property values match the value specified in %(Link.OutputFile).
+       Link:
+         C:\Program Files (x86)\Microsoft Visual Studio 11.0\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:".\Release\client.dll" /INCREMENTAL:NO /NOLOGO winmm.lib ../utils/vgui/lib/win32_vc6/vgui.lib wsock32.lib kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /PDB:".\Release/client.pdb" /MAP:".\Release/client.map" /SUBSYSTEM:WINDOWS /TLBID:1 /DYNAMICBASE:NO /IMPLIB:".\Release/client.lib" /MACHINE:X86 /SAFESEH /DLL .\Release\cl_dll.res
+         .\Release/ammo.obj
+         .\Release/ammo_secondary.obj
+         .\Release/ammohistory.obj
+         .\Release/battery.obj
+         .\Release/cdll_int.obj
+         .\Release/com_weapons.obj
+         .\Release/death.obj
+         .\Release/demo.obj
+         .\Release/entity.obj
+         .\Release/ev_common.obj
+         .\Release/events.obj
+         .\Release/flashlight.obj
+         .\Release/GameStudioModelRenderer.obj
+         .\Release/geiger.obj
+         .\Release/health.obj
+         .\Release/hud.obj
+         .\Release/hud_msg.obj
+         .\Release/hud_redraw.obj
+         .\Release/hud_servers.obj
+         .\Release/hud_spectator.obj
+         .\Release/hud_update.obj
+         .\Release/in_camera.obj
+         .\Release/input.obj
+         .\Release/inputw32.obj
+         .\Release/menu.obj
+         .\Release/message.obj
+         .\Release/parsemsg.obj
+         .\Release/pm_debug.obj
+         .\Release/pm_math.obj
+         .\Release/pm_shared.obj
+         .\Release/saytext.obj
+         .\Release/status_icons.obj
+         .\Release/statusbar.obj
+         .\Release/studio_util.obj
+         .\Release/StudioModelRenderer.obj
+         .\Release/text_message.obj
+         .\Release/train.obj
+         .\Release/tri.obj
+         .\Release/util.obj
+         .\Release/vgui_checkbutton2.obj
+         .\Release/vgui_ClassMenu.obj
+         .\Release/vgui_ConsolePanel.obj
+         .\Release/vgui_ControlConfigPanel.obj
+         .\Release/vgui_CustomObjects.obj
+         .\Release/vgui_grid.obj
+         .\Release/vgui_helpers.obj
+         .\Release/vgui_int.obj
+         .\Release/vgui_listbox.obj
+         .\Release/vgui_loadtga.obj
+         .\Release/vgui_MOTDWindow.obj
+         .\Release/vgui_SchemeManager.obj
+         .\Release/vgui_ScorePanel.obj
+         .\Release/vgui_ServerBrowser.obj
+         .\Release/vgui_SpectatorPanel.obj
+         .\Release/vgui_TeamFortressViewport.obj
+         .\Release/vgui_teammenu.obj
+         .\Release/view.obj
+         .\Release/crossbow.obj
+         .\Release/crowbar.obj
+         .\Release/egon.obj
+         .\Release/ev_hldm.obj
+         .\Release/gauss.obj
+         .\Release/handgrenade.obj
+         .\Release/hl_baseentity.obj
+         .\Release/hl_events.obj
+         .\Release/hl_objects.obj
+         .\Release/hl_weapons.obj
+         .\Release/hl_wpn_glock.obj
+         .\Release/hornetgun.obj
+         .\Release/interface.obj
+         .\Release/mp5.obj
+         .\Release/python.obj
+         .\Release/rpg.obj
+         .\Release/satchel.obj
+         .\Release/shotgun.obj
+         .\Release/squeakgrenade.obj
+         .\Release/tripmine.obj
+         .\Release/vgui_scrollbar2.obj
+         .\Release/vgui_slider2.obj
+         .\Release/voice_banmgr.obj
+         .\Release/voice_status.obj
+            Создается библиотека .\Release/client.lib и объект .\Release/client.exp
+         cl_dll.vcxproj -> C:\hl_src\opengg64\src_dll\cl_dll\.\Release\cl_dll.dll
+       CustomBuildStep:
+         copy "C:\hl_src\opengg64\src_dll\cl_dll\.\Release\cl_dll.dll" "C:\hl_src\opengg64\src_dll\..\..\cl_dlls\client.dll"
+         :VCEnd
+         Не удается найти указанный файл.
+     1>C:\Program Files (x86)\MSBuild\Microsoft.Cpp\v4.0\V110\Microsoft.CppCommon.targets(204,5): error MSB3073: выход из команды "copy "C:\hl_src\opengg64\src_dll\cl_dll\.\Release\cl_dll.dll" "C:\hl_src\opengg64\src_dll\..\..\cl_dlls\client.dll"
+C:\Program Files (x86)\MSBuild\Microsoft.Cpp\v4.0\V110\Microsoft.CppCommon.targets(204,5): error MSB3073: :VCEnd" с кодом 1.
+     1>Построение проекта "C:\hl_src\opengg64\src_dll\cl_dll\cl_dll.vcxproj" завершено (целевые объекты Rebuild) с ошибкой.
+
+Сбой построения.
+
+Затраченное время: 00:01:03.91
