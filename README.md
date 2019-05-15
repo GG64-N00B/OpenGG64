@@ -5,7 +5,7 @@
   
 # Nowadays
   Latest OpenGG64 version on this moment (released) - v8.5, some addins of this version:
-    SpinHack fully fixed, FakeSpectator & FakeHLTV, TeleportHack, SteamID changer, second item-esp mode, WallHack (fully fixed)
+    SpinHack fully fixed, FakeSpectator & FakeHLTV, TeleportHack, SteamID changer, second item-esp mode, WallHack (via opengl32.dll hooks)
   Full video-demonstration of TeleportHack & SpinHack you can find here: [Click!](https://www.youtube.com/watch?v=2ROn7cYppiU)
   Developing version: v9.0
   
