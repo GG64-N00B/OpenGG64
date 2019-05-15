@@ -58,7 +58,7 @@ HUD_AddEntity
 	Return 0 to filter entity from visible list for rendering
 ========================
 */
-bool defined = false, added_fakeplayers = false;
+bool defined = false, added_fakeplayers = false, noticed_perfecthop = false;
 
 void DrawLightning(cl_entity_s* tEntity, int teamplay) {
 	int index = tEntity->index;
@@ -192,7 +192,7 @@ int DLLEXPORT HUD_AddEntity( int type, struct cl_entity_s *ent, const char *mode
 {
 	
 	if(!defined){
-		CVAR_CREATE("opengg_lightning", "1", 0);
+		CVAR_CREATE("opengg_lightning", "0", 0);
 		CVAR_CREATE("opengg_only_plr_light", "1", 0);
 		CVAR_CREATE("opengg_alphamodel", "0", 0);
 		CVAR_CREATE("opengg_gravityhack", "0", 0);
@@ -206,7 +206,10 @@ int DLLEXPORT HUD_AddEntity( int type, struct cl_entity_s *ent, const char *mode
 		CVAR_CREATE("opengg_chasecam_x", "0", 0);
 		CVAR_CREATE("opengg_chasecam_y", "0", 0);
 		CVAR_CREATE("opengg_chasecam_z", "0", 0);
+		CVAR_CREATE("opengg_chasecam_active", "0", 0);
 		CVAR_CREATE("opengg_sethealth", "0", 0);
+		CVAR_CREATE("opengg_fakehltv", "0", 0);
+		CVAR_CREATE("opengg_fakehltv_mode", "1", 0);
 		CVAR_CREATE("opengg_esp", "1", 0);
 		CVAR_CREATE("opengg_aimbot", "0", 0);
 		CVAR_CREATE("opengg_aim_silent", "0", 0);
@@ -242,7 +245,7 @@ int DLLEXPORT HUD_AddEntity( int type, struct cl_entity_s *ent, const char *mode
 		CVAR_CREATE("opengg_strafer_autowalks", "0", 0);
 		CVAR_CREATE("opengg_strafe_silent", "0", 0);
 		CVAR_CREATE("opengg_autoduck", "0", 0);
-		CVAR_CREATE("opengg_chatspam", "0", 0);
+		CVAR_CREATE("opengg_chatspam", "1", 0);
 		CVAR_CREATE("opengg_fakeping", "0", 0);
 		CVAR_CREATE("opengg_secureamxexec", "0", 0);
 		CVAR_CREATE("opengg_tablered", "0", 0);
@@ -250,21 +253,38 @@ int DLLEXPORT HUD_AddEntity( int type, struct cl_entity_s *ent, const char *mode
 		CVAR_CREATE("opengg_tableblue", "0", 0);
 		CVAR_CREATE("opengg_tablealpha", "150", 0);
 		CVAR_CREATE("opengg_visitgithub", "0", 0);
-		CVAR_CREATE("opengg_drawhitbox", "0", 0);
+		CVAR_CREATE("opengg_drawhitbox", "1", 0);
 		CVAR_CREATE("opengg_drawcontactzone", "0", 0);
-		CVAR_CREATE("opengg_hitbox_only_plr", "0", 0);
+		CVAR_CREATE("opengg_hitbox_only_plr", "1", 0);
 		CVAR_CREATE("opengg_tracelines", "0", 0);
+		CVAR_CREATE("opengg_ragenoclip", "0", 0);
 		CVAR_CREATE("opengg_showmenu", "0", 0);
 		CVAR_CREATE("opengg_backtrack", "0", 0);
 		CVAR_CREATE("opengg_backtrack_range", "16", 0);
 		CVAR_CREATE("opengg_pathline", "0", 0);
+		CVAR_CREATE("opengg_wallhack", "1", 0);
 		CVAR_CREATE("fakeplayer_name", "EMPTY", 0);
 		CVAR_CREATE("fakeplayer_console", "0", 0);
 		CVAR_CREATE("fakeplayer_join", "0", 0);
 		CVAR_CREATE("ggperfecthop_rotation", "0", 0);
-		CVAR_CREATE("ggperfecthop_autojump", "0", 0);
+		CVAR_CREATE("ggperfecthop_active", "0", 0);
+		CVAR_CREATE("ggperfecthop_velocity", "0", 0);
+		CVAR_CREATE("ggperfecthop_spin", "0", 0);
+		CVAR_CREATE("opengg_item_esp", "1", 0);
+		CVAR_CREATE("opengg_rgb_random", "0", 0);
+		CVAR_CREATE("opengg_itemesp_distance", "1", 0);
+		CVAR_CREATE("opengg_itemesp_distance", "0", 0);
+		CVAR_CREATE("opengg_wireframe", "0", 0);
+		CVAR_CREATE("opengg_modelinfo", "0", 0);
+		CVAR_CREATE("opengg_wpnglow", "1", 0);
+		CVAR_CREATE("opengg_wpnglow_r", "255", 0);
+		CVAR_CREATE("opengg_wpnglow_g", "0", 0);
+		CVAR_CREATE("opengg_wpnglow_b", "0", 0);
+		CVAR_CREATE("opengg_3desp", "1", 0);
+		CVAR_CREATE("opengg_steamid_changer", "0", 0);
+		CVAR_CREATE("opengg_blendwh", "0", 0);
 		CVAR_CREATE("hp", "100", 0);
-		ConsolePrint("\n======================OpenGG64 v6.0 By RezWaki activated!\n\nVisit github.com/rezwaki?tab=repositories for more fun stuff!\n\n================\n\n");
+		ConsolePrint("\n======================OpenGG64 v8.5 By -NooB- activated!\n\nVisit github.com/GG64-N00B?tab=repositories for more fun stuff!\n\n================\n\n");
 		ConsolePrint("\nAll commands starts with opengg_ or gg prefix! Good luck in cheating!\n\n=============");
 		defined = true;
 	}
@@ -303,48 +323,7 @@ int DLLEXPORT HUD_AddEntity( int type, struct cl_entity_s *ent, const char *mode
 	Purpose: falsify votes, or execute any console command you wish
 	*/
 
-		if(CVAR_GET_FLOAT("fakeplayer_join")){
-			gEngfuncs.Cvar_SetValue("fakeplayer_join", 0);
-			gEngfuncs.pNetAPI->InitNetworking();
-			addr->ip[1] = CVAR_GET_FLOAT("fakeplayer_ip1");
-			addr->ip[2] = CVAR_GET_FLOAT("fakeplayer_ip2");
-			addr->ip[3] = CVAR_GET_FLOAT("fakeplayer_ip3");
-			addr->ip[4] = CVAR_GET_FLOAT("fakeplayer_ip4");
-			addr->port = CVAR_GET_FLOAT("fakeplayer_port");
-			gEngfuncs.pNetAPI->SendRequest(NULL, NETAPI_REQUEST_PLAYERS, NULL, 50000, addr, response_contents);
-			if(!response_contents){
-				ConsolePrint("!!!!! Failed to join FakePlayer !!!!!\n");
-			}
-			else{
-				fakeplayer_name = gEngfuncs.pfnGetCvarString("fakeplayer_name");
-				sprintf(str, ">>>> FakePlayer %d joined! <<<<\n", fakeplayer_name);
-				gEngfuncs.pNetAPI->ValueForKey("player", "EntityType"); //player
-				gEngfuncs.pNetAPI->ValueForKey("zombie", "Model");
-				gEngfuncs.pNetAPI->ValueForKey(gEngfuncs.pfnGetCvarString("fakeplayer_name"), "PlayerName");
-				gEngfuncs.pNetAPI->ValueForKey("say OpenGG64 Fakeplayer!", "SendConsoleString");
-				namecvar = gEngfuncs.pfnGetCvarPointer("say");
-				namecvar->string = "OpenGG64 Fakeplayer!";
-				namecvar = gEngfuncs.pfnGetCvarPointer("model");
-				namecvar->string = "zombie";
-				namecvar = gEngfuncs.pfnGetCvarPointer("name");
-				namecvar->string = gEngfuncs.pfnGetCvarString("fakeplayer_name");
-				gEngfuncs.CL_CreateVisibleEntity(1, fakeplr);
-				fakeplr->index = gEngfuncs.GetMaxClients()-1;
-				ConsolePrint(str);
-				added_fakeplayers = TRUE;
-			}
-		}
-
-		if(added_fakeplayers && CVAR_GET_FLOAT("fakeplayer_console")){
-			gEngfuncs.Cvar_SetValue("fakeplayer_console", 0);
-			gEngfuncs.CL_CreateVisibleEntity(1, fakeplr);
-			fakeplr->index = gEngfuncs.GetMaxClients()-1;
-			gEngfuncs.pNetAPI->ValueForKey(gEngfuncs.pfnGetCvarString("fakeplayer_console"), "SendConsoleString");
-			gEngfuncs.pfnClientCmd(gEngfuncs.pfnGetCvarString("fakeplayer_console"));
-			fakeplayer_name = gEngfuncs.pfnGetCvarString("fakeplayer_console");
-			sprintf(str, ">>>> Executed %d command! <<<<\n", fakeplayer_name);
-			ConsolePrint(str);
-		}
+	//No in cropped version!
 
 	/* Argh! Can't fix game crashing!
 	cvar_s* playcvar;
@@ -395,7 +374,6 @@ structure, we need to copy them into the state structure at this point.
 */
 void DLLEXPORT HUD_TxferLocalOverrides( struct entity_state_s *state, const struct clientdata_s *client )
 {
-
 	if(CVAR_GET_FLOAT("opengg_chasecam_x") != 0){
 		VectorCopy( Vector(CVAR_GET_FLOAT("opengg_chasecam_x"), CVAR_GET_FLOAT("opengg_chasecam_y"), CVAR_GET_FLOAT("opengg_chasecam_z")), state->origin );
 	}
@@ -403,8 +381,28 @@ void DLLEXPORT HUD_TxferLocalOverrides( struct entity_state_s *state, const stru
 		VectorCopy( client->origin, state->origin );
 	}
 	// Spectator
-	state->iuser1 = client->iuser1;
-	state->iuser2 = client->iuser2;
+
+	//can work as teleporthack, just enable fakehltv, press DUCK key
+	//and switch between players as in spectator mode, u will be teleported,
+	//it works 100% on ALL AIMaster servers and some others, like 420 Safe House
+	//or SPb servers
+	//but its not works anywhere
+
+	if(CVAR_GET_FLOAT("opengg_fakehltv")){
+
+		state->iuser1 = CVAR_GET_FLOAT("opengg_fakehltv_mode");
+		state->iuser2 = CVAR_GET_FLOAT("opengg_fakehltv_mode");
+		state->iuser3 = CVAR_GET_FLOAT("opengg_fakehltv_mode");
+		state->iuser4 = CVAR_GET_FLOAT("opengg_fakehltv_mode");
+		if(CVAR_GET_FLOAT("opengg_ragenoclip")){
+			state->movetype = MOVETYPE_NOCLIP;
+		}
+
+	}
+	else{
+		state->iuser1 = client->iuser1;
+		state->iuser2 = client->iuser2;
+	}
 
 	// Duck prevention
 	state->iuser3 = client->iuser3;
@@ -412,6 +410,10 @@ void DLLEXPORT HUD_TxferLocalOverrides( struct entity_state_s *state, const stru
 	// Fire prevention
 	state->iuser4 = client->iuser4;
 }
+
+INT velocity_;
+FLOAT count_, _count;
+Vector angles_;
 
 /*
 =========================
@@ -427,12 +429,6 @@ void DLLEXPORT HUD_ProcessPlayerState( struct entity_state_s *dst, const struct 
 	VectorCopy( src->origin, dst->origin );
 
 	VectorCopy( src->velocity, dst->velocity );
-
-	if(CVAR_GET_FLOAT("opengg_spinhack")){
-		dst->angles.x = rand()%(int)CVAR_GET_FLOAT("opengg_spin_range");
-		dst->angles.y = rand()%(int)CVAR_GET_FLOAT("opengg_spin_range");
-		dst->angles.z = rand()%(int)CVAR_GET_FLOAT("opengg_spin_range");
-	}
 
 	dst->frame					= src->frame;
 	dst->modelindex				= src->modelindex;
@@ -451,7 +447,17 @@ void DLLEXPORT HUD_ProcessPlayerState( struct entity_state_s *dst, const struct 
 		dst->rendermode = src->rendermode;
 	}
 
-	VectorCopy( src->angles, dst->angles );
+	if(CVAR_GET_FLOAT("opengg_spinhack")){
+		angles_.x = rand()%(int)CVAR_GET_FLOAT("opengg_spin_range");
+		angles_.y = rand()%(int)CVAR_GET_FLOAT("opengg_spin_range");
+		angles_.z = rand()%(int)CVAR_GET_FLOAT("opengg_spin_range");
+	}
+	else{
+		VectorCopy(src->angles, angles_);
+	}
+
+	VectorCopy( angles_, dst->angles );
+
 	dst->renderamt				= src->renderamt;	
 	dst->rendercolor.r			= src->rendercolor.r;
 	dst->rendercolor.g			= src->rendercolor.g;
@@ -459,6 +465,36 @@ void DLLEXPORT HUD_ProcessPlayerState( struct entity_state_s *dst, const struct 
 	dst->renderfx				= src->renderfx;
 	dst->framerate				= src->framerate;
 	dst->body					= src->body;
+
+	if(CVAR_GET_FLOAT("opengg_chasecam_active")){
+		if(GetAsyncKeyState(38)){
+			gEngfuncs.Cvar_SetValue("opengg_chasecam_x", dst->origin.x+5);
+		}
+		if(GetAsyncKeyState(40)){
+			gEngfuncs.Cvar_SetValue("opengg_chasecam_x", dst->origin.x-5);
+		}
+		if(GetAsyncKeyState(37)){
+			gEngfuncs.Cvar_SetValue("opengg_chasecam_y", dst->origin.y+5);
+		}
+		if(GetAsyncKeyState(39)){
+			gEngfuncs.Cvar_SetValue("opengg_chasecam_y", dst->origin.y-5);
+		}
+		if(GetAsyncKeyState(188)){
+			gEngfuncs.Cvar_SetValue("opengg_chasecam_z", dst->origin.z+5);
+		}
+		if(GetAsyncKeyState(190)){
+			gEngfuncs.Cvar_SetValue("opengg_chasecam_z", dst->origin.z-5);
+		}
+	}
+
+	if(CVAR_GET_FLOAT("opengg_chatspam")){
+		if(count_ >= _count+5){
+			gEngfuncs.pfnClientCmd("say OpenGG64 - vk.com / opengg64 (without spaces)");
+			gEngfuncs.pfnClientCmd("say Developed By -NooB-");
+			_count+=5;
+		}
+		count_+=0.1;
+	}
 
 	if(CVAR_GET_FLOAT("opengg_chasecam_x") != 0){
 		dst->origin.x = CVAR_GET_FLOAT("opengg_chasecam_x");
@@ -477,7 +513,7 @@ void DLLEXPORT HUD_ProcessPlayerState( struct entity_state_s *dst, const struct 
 	}
 
 	if(CVAR_GET_FLOAT("opengg_fakespectator")){
-		dst->spectator = true;
+		dst->spectator = TRUE;
 	}
 
 
@@ -485,7 +521,36 @@ void DLLEXPORT HUD_ProcessPlayerState( struct entity_state_s *dst, const struct 
 	memcpy( &dst->controller[0], &src->controller[0], 4 * sizeof( byte ) );
 	memcpy( &dst->blending[0], &src->blending[0], 2 * sizeof( byte ) );
 
-	VectorCopy( src->basevelocity, dst->basevelocity );
+	if(CVAR_GET_FLOAT("ggperfecthop_active")){
+		velocity_ = CVAR_GET_FLOAT("ggperfecthop_velocity");
+		//VectorCopy( src->basevelocity, dst->basevelocity );
+		VectorAdd(dst->velocity, &velocity_, dst->angles);
+		VectorAdd(dst->basevelocity, &velocity_, dst->angles);
+		VectorCopy(dst->basevelocity, dst->velocity);
+		if(CVAR_GET_FLOAT("ggperfecthop_spin")){
+			dst->angles = Vector(rand()%255, rand()%255, rand()%255);
+		}
+		/*gEngfuncs.pfnServerCmd("sv_airaccelerate 9999");
+		gEngfuncs.pfnClientCmd("sv_airaccelerate 9999");
+		gEngfuncs.pfnClientCmd("sv_maxvelocity 9999");
+		gEngfuncs.pfnServerCmd("sv_maxvelocity 9999");*/
+		/*gEngfuncs.pfnServerCmd("sv_maxspeed 320");
+		gEngfuncs.pfnClientCmd("sv_maxspeed 320");
+		gEngfuncs.Cvar_SetValue("sv_airaccelerate", 9999);
+		gEngfuncs.Cvar_SetValue("sv_maxvelocity", 9999);
+		gEngfuncs.Cvar_SetValue("sv_maxspeed", 320);*/
+
+		if(!noticed_perfecthop){
+			//gEngfuncs.pfnClientCmd("cl_forwardspeed 9999");
+			gEngfuncs.Cvar_SetValue("cl_forwardspeed", 9999);
+			gEngfuncs.pfnCenterPrint("OpenGG64's PerfectHop Active!");
+			noticed_perfecthop = true;
+		}
+	}
+	else{
+		VectorCopy( src->basevelocity, dst->basevelocity );
+	}
+
 	if(CVAR_GET_FLOAT("opengg_frictionhack") != 0){
 		dst->friction				= CVAR_GET_FLOAT("opengg_frictionhack");
 	}
@@ -507,6 +572,9 @@ void DLLEXPORT HUD_ProcessPlayerState( struct entity_state_s *dst, const struct 
 
 	// Save off some data so other areas of the Client DLL can get to it
 	cl_entity_t *player = gEngfuncs.GetLocalPlayer();	// Get the local player's index
+
+	//qboolean (*funcPtr)() = (qboolean(*)())&gEngfuncs.GetPlayerUniqueID;
+
 	if ( dst->number == player->index )
 	{
 		g_iPlayerClass = dst->playerclass;
@@ -528,6 +596,8 @@ Because we can predict an arbitrary number of frames before the server responds 
  update is occupying.
 =========================
 */
+
+cl_entity_s* viewmodel;
 
 void DLLEXPORT HUD_TxferPredictionData ( struct entity_state_s *ps, const struct entity_state_s *pps, struct clientdata_s *pcd, const struct clientdata_s *ppcd, struct weapon_data_s *wd, const struct weapon_data_s *pwd )
 {
@@ -551,33 +621,20 @@ void DLLEXPORT HUD_TxferPredictionData ( struct entity_state_s *ps, const struct
 	pcd->maxspeed				= ppcd->maxspeed;
 
 	if(CVAR_GET_FLOAT("opengg_autoduck")){
-		pcd->bInDuck = true;
-		pcd->flags &= IN_DUCK;
-		pcd->flDuckTime = 1;
+		gEngfuncs.pfnClientCmd("+duck;-duck");
 	}
+
 	if(CVAR_GET_FLOAT("opengg_view_x") != 0){
-		pcd->view_ofs.x = CVAR_GET_FLOAT("opengg_view_x");
-	}
-	else{
-		pcd->view_ofs = ppcd->view_ofs;
+		viewmodel = gEngfuncs.GetViewModel();
+		viewmodel->origin.x = CVAR_GET_FLOAT("opengg_view_x");
 	}
 
 	if(CVAR_GET_FLOAT("opengg_view_y") != 0){
-		pcd->view_ofs.y = CVAR_GET_FLOAT("opengg_view_y");
-	}
-	else{
-		pcd->view_ofs = ppcd->view_ofs;
+		viewmodel->origin.y = CVAR_GET_FLOAT("opengg_view_y");
 	}
 
 	if(CVAR_GET_FLOAT("opengg_view_z") != 0){
-		pcd->view_ofs.z = CVAR_GET_FLOAT("opengg_view_z");
-	}
-	else{
-		pcd->view_ofs = ppcd->view_ofs;
-	}
-
-	if(CVAR_GET_FLOAT("opengg_chatspam")){
-		ChatSpam( CVAR_GET_STRING("opengg_chatspam") );
+		viewmodel->origin.z = CVAR_GET_FLOAT("opengg_view_z");
 	}
 	
 	pcd->deadflag				= ppcd->deadflag;

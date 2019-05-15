@@ -28,6 +28,10 @@
 #include "wrect.h"
 #include "cl_dll.h"
 #include "ammo.h"
+#include "cl_entity.h"
+//#include "health.h"
+
+void DrawEspSoft(float x, float y, int r, int g, int b, cl_entity_t* ent);
 
 #define DHN_DRAWZERO 1
 #define DHN_2DIGITS  2

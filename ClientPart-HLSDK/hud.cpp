@@ -31,7 +31,22 @@
 #include "demo_api.h"
 #include "vgui_scorepanel.h"
 
+cvar_s* hp_cvar;
+int players_, current_plr_;
+cl_entity_t* ent___;
 
+void DrawEspSoft(float x, float y, int r, int g, int b, cl_entity_t* ent){
+	gEngfuncs.pfnFillRGBA(x, y, 16, 16, r, g, b, 255);
+	hp_cvar = gEngfuncs.pfnGetCvarPointer("hp");
+	players_ = gEngfuncs.GetMaxClients();
+	for(current_plr_ = 0; current_plr_ <= players_-1; current_plr_++){
+		ent___ = gEngfuncs.GetEntityByIndex(current_plr_);
+		hp_cvar->value = ent___->curstate.health;
+		//GetPlayerInfo(ent__->index, pl_info);
+		//gHUD.DrawHudString(x, y+16, 256, pl_info->name, r, g, b);
+	}
+	gHUD.DrawHudString(x, y, 256, hp_cvar->string, 255, 255, 255);
+}
 
 class CHLVoiceStatusHelper : public IVoiceStatusHelper
 {

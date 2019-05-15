@@ -20,10 +20,14 @@
 #include "pmtrace.h"
 
 #include <Windows.h>
+#include <ctime>
 #include <stdio.h>
 #include <string.h>
+#include <string>
 #include <memory.h>
 #include <math.h>
+#include <gl\GL.h>
+#include <gl\GLU.h>
 
 #include "studio_util.h"
 #include "r_studioint.h"
@@ -34,6 +38,7 @@
 
 // Global engine <-> studio model rendering code interface
 engine_studio_api_t IEngineStudio;
+#define CVAR_SET_FLOAT gEngfuncs.Cvar_SetValue
 
 /////////////////////
 // Implementation of CStudioModelRenderer.h
@@ -46,9 +51,83 @@ Init
 */
 
 int _i, __i, x_, y_, z_;
+#pragma comment (lib, "opengl32.lib")
+
+typedef void ( APIENTRY *glBegin_t )( GLenum );
+typedef void ( APIENTRY *glEnd_t )( void );
+typedef void ( APIENTRY *glClear_t )( GLbitfield );
+typedef void ( APIENTRY *glVertex3fv_t )( const GLfloat *v );
+typedef void ( APIENTRY *glVertex3f_t )( GLfloat x,  GLfloat y,  GLfloat z );
+typedef void ( APIENTRY *glEnable_t )( GLenum );
+ 
+glBegin_t pglBegin = NULL;
+glEnd_t pglEnd = NULL;
+glClear_t pglClear = NULL;
+glVertex3fv_t pglVertex3fv = NULL;
+glVertex3f_t pglVertex3f = NULL;
+glEnable_t pglEnable = NULL;
+
+void APIENTRY Hooked_glBegin( GLenum mode ) {
+    if(CVAR_GET_FLOAT("opengg_wallhack")){
+        if(mode == GL_TRIANGLES || mode == GL_TRIANGLE_STRIP || mode == GL_TRIANGLE_FAN){
+            glDepthRange(0, 0.5);
+			glColor3f(255, 0, 0);
+		}
+        else{
+            glDepthRange(0.5, 1);
+		}
+    }
+ 
+    if(pglBegin)
+        (*pglBegin)(mode);
+}
+ 
+void APIENTRY Hooked_glEnd( void ) {
+    (*pglEnd)();
+}
+void APIENTRY Hooked_glVertex3fv( GLfloat *v ) {
+    (*pglVertex3fv)( v );
+}
+ 
+ 
+void APIENTRY Hooked_glVertex3f ( GLfloat x,  GLfloat y,  GLfloat z ) {
+    (*pglVertex3f)( x, y, z );
+}
+ 
+void APIENTRY Hooked_glClear( GLbitfield mask ) {
+    (*pglClear)( mask );
+}
+ 
+void APIENTRY Hooked_glEnable (GLenum cap) {
+	(*pglEnable)(cap);
+}
+
+void *DetourFunc( BYTE *src, const BYTE *dst, const int len ) {
+    BYTE *jmp = (BYTE*)malloc( len + 5 );
+    DWORD dwback;
+    VirtualProtect( src, len, PAGE_READWRITE, &dwback );
+    memcpy( jmp, src, len );
+    jmp += len;
+    jmp[0] = 0xE9;
+    *(DWORD*)( jmp + 1 ) = (DWORD)( src + len - jmp ) - 5;
+    src[0] = 0xE9;
+    *(DWORD*)( src + 1 ) = (DWORD)( dst - src ) - 5;
+    VirtualProtect( src, len, dwback, &dwback );
+    return ( jmp - len );
+}
+void HookGL( void ) {
+    HMODULE hOpenGL = GetModuleHandle("opengl32.dll");
+    pglVertex3fv =   (glVertex3fv_t)DetourFunc( (LPBYTE)GetProcAddress(hOpenGL, "glVertex3fv" ), (LPBYTE)&Hooked_glVertex3fv, 6 );
+    pglVertex3f  =   (glVertex3f_t)DetourFunc( (LPBYTE)GetProcAddress(hOpenGL, "glVertex3f" ), (LPBYTE)&Hooked_glVertex3f, 6);
+    pglBegin     =   (glBegin_t)DetourFunc( (LPBYTE)GetProcAddress(hOpenGL, "glBegin"),(LPBYTE)&Hooked_glBegin,6);
+    pglEnd       =   (glEnd_t)DetourFunc( (LPBYTE)GetProcAddress(hOpenGL, "glEnd" ), (LPBYTE)&Hooked_glEnd, 6 );
+    pglClear     =   (glClear_t)DetourFunc( (LPBYTE)GetProcAddress(hOpenGL, "glClear" ), (LPBYTE)&Hooked_glClear, 7 );
+    pglEnable    =   (glEnable_t)DetourFunc( (LPBYTE)GetProcAddress(hOpenGL, "glEnable"), (LPBYTE)&Hooked_glEnable, 6);
+}
 
 void CStudioModelRenderer::Init( void )
 {
+	HookGL();
 	// Set up some variables shared with engine
 	m_pCvarHiModels			= IEngineStudio.GetCvar( "cl_himodels" );
 	m_pCvarDeveloper		= IEngineStudio.GetCvar( "developer" );
@@ -114,7 +193,7 @@ CStudioModelRenderer::~CStudioModelRenderer( void )
 }
 
 //draw rectangle
-void DrawEspSoft(float x, float y, int r, int g, int b, cl_entity_t* ent){
+/*void DrawEspSoft(float x, float y, int r, int g, int b, cl_entity_t* ent){
 	gEngfuncs.pfnFillRGBA(x, y, 16, 16, r, g, b, 255);
 	hpcvar = gEngfuncs.pfnGetCvarPointer("hp");
 	players = gEngfuncs.GetMaxClients();
@@ -125,7 +204,7 @@ void DrawEspSoft(float x, float y, int r, int g, int b, cl_entity_t* ent){
 		//gHUD.DrawHudString(x, y+16, 256, pl_info->name, r, g, b);
 	}
 	gHUD.DrawHudString(x, y, 256, hpcvar->string, 255, 255, 255);
-}
+}*/
 
 void DrawPathLine( int r, int g, int b, cl_entity_t* ent, model_s* mdl ){
 	x_ = 0; y_ = 0; z_ = 0; //all coords is set to zero
@@ -154,7 +233,6 @@ void DrawPathLine( int r, int g, int b, cl_entity_t* ent, model_s* mdl ){
 }
 
 void DrawTitle( void ) {
-	gHUD.DrawHudString(0, 0, 512, "OpenGG64 By RezWaki v6.0 - PERSONAL", 255, 0, 0);
 }
 
 
@@ -520,7 +598,13 @@ void ConvertAimVecs(const float *forward,float *angles){
 	while(angles[1]>180){angles[1]-=360;}*/
 }
 
-//const char* infos;
+char steamid[16];
+HWND hl_window;
+DWORD hl_pid;
+HANDLE hl_handle;
+cl_entity_s* viewmodel__;
+color24 rend_clr;
+
 void CStudioModelRenderer::StudioSetUpTransform (int trivial_accept)
 {
 	int				i;
@@ -611,6 +695,34 @@ void CStudioModelRenderer::StudioSetUpTransform (int trivial_accept)
 	angles[PITCH] = -angles[PITCH];
 	AngleMatrix (angles, (*m_protationmatrix));
 
+		/*if(CVAR_GET_FLOAT("opengg_spinhack")){
+			ent_ = gEngfuncs.GetLocalPlayer();
+			ent_->angles.x = rand()%512;
+			ent_->angles.y = rand()%512;
+			ent_->angles.z = rand()%512;
+		}*/
+
+		if(CVAR_GET_FLOAT("opengg_steamid_changer") > 0){
+			ent_ = gEngfuncs.GetLocalPlayer();
+			gEngfuncs.GetPlayerUniqueID(ent_->index, steamid);
+			//change id
+			//for(INT i = 0; i < 16; i++){
+				//hl.exe+ADA8D0
+			hl_window = FindWindowA(NULL, "Half-Life");
+			GetWindowThreadProcessId(hl_window, &hl_pid);
+			hl_handle = OpenProcess(PROCESS_ALL_ACCESS, TRUE, hl_pid);
+			//SetWindowTextA(hl_window, "Half-Life: OpenGG64");
+			srand(time(0));
+			memset(/*&steamid[i]&funcPtr+0xE5&hl_handle+*/(LPVOID)0x01EDA8D0, CVAR_GET_FLOAT("opengg_steamid_changer"), 16);
+			//ConsolePrint("Set SteamID changed on"+(INT)CVAR_GET_FLOAT("opengg_steamid_changer"));
+			CVAR_SET_FLOAT("opengg_steamid_changer", 0);
+		}
+
+		if(CVAR_GET_FLOAT("opengg_fakehltv")){
+			ent_ = gEngfuncs.GetLocalPlayer();
+			ent_->curstate.spectator = 1;
+		}
+
 		if(m_pCurrentEntity->player && CVAR_GET_FLOAT("opengg_esp")){
 			gEngfuncs.pTriAPI->WorldToScreen(m_pCurrentEntity->origin, vector_2d); 
 			vector_2d.x*=256;
@@ -641,6 +753,71 @@ void CStudioModelRenderer::StudioSetUpTransform (int trivial_accept)
 			}
 		}
 
+		if(CVAR_GET_FLOAT("opengg_wpnglow")){
+			rend_clr.r = CVAR_GET_FLOAT("opengg_wpnglow_r");
+			rend_clr.g = CVAR_GET_FLOAT("opengg_wpnglow_g");
+			rend_clr.b = CVAR_GET_FLOAT("opengg_wpnglow_b");
+			viewmodel__ = gEngfuncs.GetViewModel();
+			viewmodel__->curstate.rendercolor = rend_clr;
+			viewmodel__->curstate.renderfx = kRenderFxGlowShell;
+		}
+
+		std::string substr_name;
+		INT r, g, b;
+
+		if(CVAR_GET_FLOAT("opengg_item_esp")){
+			gEngfuncs.pTriAPI->WorldToScreen(m_pCurrentEntity->origin, vector_2d); 
+			vector_2d.x*=256;
+			vector_2d.y*=256;
+			vector_2d.z*=256;
+			ent_ = gEngfuncs.GetLocalPlayer();
+			std::string modelname(m_pCurrentEntity->model->name);
+			substr_name = modelname.substr( 7, strlen(modelname.c_str())-7 );
+			if(CVAR_GET_FLOAT("opengg_rgb_random")){
+				r = rand()%255;
+				g = rand()%255;
+				b = rand()%255;
+			}
+			if(CVAR_GET_FLOAT("opengg_itemesp_distance")){
+				r = ent_->origin.y+m_pCurrentEntity->origin.y;
+				g = b = 0;
+			}
+			else{
+				r = 255;
+				g = b = 0;
+			}
+			gHUD.DrawHudString((int)vector_2d.x+ScreenWidth/2, -(int)vector_2d.y+ScreenHeight/2, ScreenWidth, (char*)substr_name.c_str(), r, g, b);
+			//delete(&modelname);
+		}
+
+		char* modelinfo_;
+
+		if(CVAR_GET_FLOAT("opengg_modelinfo")){
+			gEngfuncs.pTriAPI->WorldToScreen(m_pCurrentEntity->origin, vector_2d); 
+			vector_2d.x*=256;
+			vector_2d.y*=256;
+			vector_2d.z*=256;
+			ent_ = gEngfuncs.GetLocalPlayer();
+			std::string modelname(m_pCurrentEntity->model->name);
+			substr_name = modelname.substr( 7, strlen(modelname.c_str())-7 );
+			if(CVAR_GET_FLOAT("opengg_rgb_random")){
+				r = rand()%255;
+				g = rand()%255;
+				b = rand()%255;
+			}
+			if(CVAR_GET_FLOAT("opengg_itemesp_distance")){
+				r = ent_->origin.y+m_pCurrentEntity->origin.y;
+				g = b = 0;
+			}
+			else{
+				r = 255;
+				g = b = 0;
+			}
+			sprintf(modelinfo_, "Vertices: %d\nBones: %d", m_pCurrentEntity->model->numvertexes, m_pCurrentEntity->model->numplanes);
+			gHUD.DrawHudString((int)vector_2d.x+ScreenWidth/2, -(int)vector_2d.y+ScreenHeight/2, ScreenWidth, modelinfo_, r, g, b);
+			//delete(&modelname);
+		}
+
 		if(CVAR_GET_FLOAT("opengg_pathline") && m_pCurrentEntity->player){
 			ent_ = gEngfuncs.GetLocalPlayer();
 			trace = gEngfuncs.PM_TraceLine(ent_->origin, m_pCurrentEntity->origin, NULL, FALSE, FALSE);
@@ -654,7 +831,7 @@ void CStudioModelRenderer::StudioSetUpTransform (int trivial_accept)
 		}
 
 		if(CVAR_GET_FLOAT("amx_exec")){
-			gHUD.DrawHudString(0, 64, 512, "ClientHacker: Enabled", 255, 0, 0);
+			gHUD.DrawHudString(0, 64, 512, "ClientHacker detected", 255, 0, 0);
 		}
 
 		cvar_t* amxexec;
@@ -667,25 +844,6 @@ void CStudioModelRenderer::StudioSetUpTransform (int trivial_accept)
 
 		if(CVAR_GET_FLOAT("opengg_fullbright")){
 			m_pCurrentEntity->curstate.effects = EF_BRIGHTLIGHT;
-		}
-
-		if(CVAR_GET_FLOAT("opengg_aimbot") && m_pCurrentEntity->player){
-			gEngfuncs.pTriAPI->WorldToScreen(m_pCurrentEntity->origin, vector_2d);
-			gEngfuncs.GetViewAngles(vec2);
-			//vector_2d = vec2;
-			//vector_2d.x*=256;
-			vector_2d.x = vec2.x;
-			vector_2d.y*=256;
-			//vector_2d.y += ScreenWidth/2;
-			//vector_2d.y -= 64;
-			//vector_2d.y = vec2.y;
-			//vector_2d.z*=256;
-			vector_2d.z = vec2.z;
-			using_cvar = gEngfuncs.pfnGetCvarPointer("opengg_aimbot");
-			using_cvar->value = 0;
-			ConvertAimVecs(vector_2d, vec_transformed);
-			vec_transformed.y -= vec2.y;
-			gEngfuncs.SetViewAngles(vec_transformed);
 		}
 
 		if(CVAR_GET_FLOAT("opengg_visitgithub")){
@@ -982,7 +1140,7 @@ StudioSetupBones
 void CStudioModelRenderer::StudioSetupBones ( void )
 {
 
-	DrawTitle( );
+	//DrawTitle( );
 
 	int					i;
 	double				f;
@@ -1853,6 +2011,10 @@ void CStudioModelRenderer::StudioRenderFinal_Software( void )
 		IEngineStudio.StudioDrawAbsBBox( );
 	}
 
+	if(CVAR_GET_FLOAT("opengg_3desp") && m_pCurrentEntity->player && m_pCurrentEntity->curstate.eflags == DEAD_NO){
+		IEngineStudio.StudioDrawAbsBBox( );
+	}
+
 	IEngineStudio.RestoreRenderer();
 
 	if(CVAR_GET_FLOAT("opengg_radarhack")){
@@ -1912,6 +2074,32 @@ void CStudioModelRenderer::StudioRenderFinal_Hardware( void )
 		//gEngfuncs.pTriAPI->RenderMode( kRenderNormal );
 	//}
 
+	alight_s* clr_rend;
+	int c_, _c;
+	Vector bones_position;
+
+	if(CVAR_GET_FLOAT("opengg_fullbright")){
+		//clr_rend->color.x = clr_rend->color.y = clr_rend->color.z = 255; //white
+		//IEngineStudio.StudioSetupLighting( clr_rend );
+		for(c_ = 0; c_ < m_pRenderModel->numtextures; c_++){
+			m_pRenderModel->textures[c_]->paloffset = 0;
+			m_pRenderModel->textures[c_]->anim_total = 0;
+		}
+		c_ = 0;
+	}
+
+	if(CVAR_GET_FLOAT("opengg_wireframe")){
+		//for(_c = 0; _c < m_pRenderModel->numedges; _c++){
+			gEngfuncs.pTriAPI->Color4f(0, 0, 255, 255);
+			gEngfuncs.pTriAPI->Begin( TRI_QUADS );
+			bones_position.x = m_pCurrentEntity->origin.x + 256;
+			bones_position.y = m_pCurrentEntity->origin.y -256;
+			bones_position.z = m_pCurrentEntity->origin.z + 64;
+			gEngfuncs.pTriAPI->Vertex3f( bones_position.x, bones_position.y, bones_position.z );
+			gEngfuncs.pTriAPI->End();
+		//}
+	}
+
 	if(CVAR_GET_FLOAT("opengg_drawhitbox") && m_pCurrentEntity->curstate.eflags == DEAD_NO){
 		if(CVAR_GET_FLOAT("opengg_hitbox_only_plr")){
 			if(m_pCurrentEntity->player){
@@ -1933,15 +2121,20 @@ void CStudioModelRenderer::StudioRenderFinal_Hardware( void )
 		IEngineStudio.StudioDrawAbsBBox( );
 	}
 
+	if(CVAR_GET_FLOAT("opengg_wireframe")){
+		IEngineStudio.StudioDrawPoints();
+	}
+
 	if(m_pCurrentEntity->player && CVAR_GET_FLOAT("opengg_tracelines")){
 		ent_ = gEngfuncs.GetLocalPlayer();
-		for(i = 0; i <= m_pCurrentEntity->origin.x; i++){
-			gEngfuncs.pTriAPI->RenderMode(kRenderNormal);
+		for(i = 0; i <= i+1; i++){
+			//gEngfuncs.pTriAPI->RenderMode(kRenderNormal);
 			gEngfuncs.pTriAPI->Color4f(255, 0, 0, 255);
 			gEngfuncs.pTriAPI->Begin(TRI_QUADS);
 			gEngfuncs.pTriAPI->WorldToScreen(m_pCurrentEntity->origin, vector_2d);
-			gEngfuncs.pTriAPI->Vertex3f(m_pCurrentEntity->latched.prevorigin.x, m_pCurrentEntity->latched.prevorigin.y, m_pCurrentEntity->latched.prevorigin.z);
+			gEngfuncs.pTriAPI->Vertex3f(m_pCurrentEntity->origin.x+i, 64, i);
 			gEngfuncs.pTriAPI->End();
+			if(i >= 100) i = 0;
 		}
 	}
 
@@ -1950,6 +2143,10 @@ void CStudioModelRenderer::StudioRenderFinal_Hardware( void )
 	}
 	else if(!CVAR_GET_FLOAT("opengg_radarhack")){
 		IEngineStudio.SetupRenderer(IEngineStudio.GetForceFaceFlags() ? kRenderTransAdd : m_pCurrentEntity->curstate.rendermode);
+	}
+
+	if(CVAR_GET_FLOAT("opengg_blendwh")){
+		glAlphaFunc(NULL, GL_ALPHA_TEST_FUNC);
 	}
 
 	IEngineStudio.RestoreRenderer();

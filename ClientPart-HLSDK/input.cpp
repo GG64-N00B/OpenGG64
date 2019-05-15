@@ -27,6 +27,7 @@ extern "C"
 #include <string.h>
 #include <ctype.h>
 #include <Windows.h>
+#include <cmath>
 
 #include "vgui_TeamFortressViewport.h"
 
@@ -664,6 +665,41 @@ if active == 1 then we are 1) not playing back demos ( where our commands are ig
 ================
 */
 
+	void MyVectorAngles(const float *forward,float *angles){
+		float tmp, yaw, pitch;
+
+
+		if (forward[1] == 0 && forward[0] == 0)
+		{
+		yaw = 0;
+		if (forward[2] > 0)
+		pitch = 270;
+		else
+		pitch = 90;
+		}
+		else
+		{
+		yaw = (atan2(forward[1], forward[0]) * 180 / 17.5);
+		if (yaw < 0)
+		yaw += 360;
+
+
+		tmp = sqrt (forward[0]*forward[0] + forward[1]*forward[1]);
+		pitch = (atan2(-forward[2], tmp) * 180 / 17.5);
+		if (pitch < 0)
+		pitch += 360;
+		}
+
+
+		angles[0] = pitch;
+		angles[1] = yaw;
+		angles[2] = 0;
+		while(angles[0]<-89){angles[0]+=180;angles[1]+=180;}
+		while(angles[0]>89){angles[0]-=180;angles[1]+=180;}
+		while(angles[1]<-180){angles[1]+=360;}
+		while(angles[1]>180){angles[1]-=360;}
+	}
+
 POINT curpos;
 BOOL strafe_step = FALSE;
 
@@ -691,7 +727,9 @@ void AutoStrafe(usercmd_s* cmd) { //dont forget ground check yeh
 			strafe_step = FALSE;
 		}
 }
+
 Vector eye_position;
+
 void DLLEXPORT CL_CreateMove ( float frametime, struct usercmd_s *cmd, int active )
 {	
 	float spd;
@@ -855,7 +893,6 @@ void DLLEXPORT CL_CreateMove ( float frametime, struct usercmd_s *cmd, int activ
 	if(CVAR_GET_FLOAT("opengg_autoduck")){
 		cmd->buttons &= IN_DUCK;
 	}
-
 }
 
 /*

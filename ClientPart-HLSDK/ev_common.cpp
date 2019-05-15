@@ -139,7 +139,7 @@ void EV_EjectBrass( float *origin, float *velocity, float rotation, int model, i
 	vec3_t endpos;
 	VectorClear( endpos );
 	endpos[1] = rotation;
-	gEngfuncs.pEfxAPI->R_TempModel( origin, velocity, endpos, 2.5, model, soundtype );
+	//gEngfuncs.pEfxAPI->R_TempModel( origin, velocity, endpos, 2.5, model, soundtype );
 }
 
 /*
@@ -201,5 +201,5 @@ void EV_MuzzleFlash( void )
 	}
 
 	// Or in the muzzle flash
-	ent->curstate.effects |= EF_MUZZLEFLASH;
+	//ent->curstate.effects |= EF_MUZZLEFLASH;
 }

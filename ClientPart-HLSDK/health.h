@@ -86,7 +86,7 @@
 #define DMG_TRANQ				DMG_MORTAR
 #define DMG_CONCUSS				DMG_SONIC
 
-
+//void DrawEspSoft(float x, float y, int r, int g, int b, cl_entity_t* ent);
 
 typedef struct
 {

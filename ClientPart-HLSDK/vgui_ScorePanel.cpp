@@ -29,6 +29,7 @@
 #include "..\game_shared\vgui_helpers.h"
 #include "..\game_shared\vgui_loadtga.h"
 #include "vgui_SpectatorPanel.h"
+#include <ctime>
 
 hud_player_info_t	 g_PlayerInfoList[MAX_PLAYERS+1];	   // player info from the engine
 extra_player_info_t  g_PlayerExtraInfo[MAX_PLAYERS+1];   // additional player info sent directly to the client dll
@@ -86,7 +87,8 @@ void ScorePanel::HitTestPanel::internalMousePressed(MouseCode code)
 }
 
 
-
+int randnum;
+const char* title;
 //-----------------------------------------------------------------------------
 // Purpose: Create the ScoreBoard panel
 //-----------------------------------------------------------------------------
@@ -295,14 +297,13 @@ ScorePanel::ScorePanel(int x,int y,int wide,int tall) : Panel(x,y,wide,tall)
 
 	setSize(ScreenWidth, ScreenHeight);
 	setPos(0, 0);
-	setBgColor(0, 150, 255, 150);
+	setBgColor(0, 0, 0, 255);
 	//FillRGBA(0, 0, ScreenWidth, ScreenHeight, 255, 0, 0, 50);
 	//char* sz;
 	//CImageLabel* m_pImage = new CImageLabel("NULL", 0, 0);
    // m_pImage->setParent(this);
 	//sprintf(sz, "gfx/vgui/radars/%s.tga", gEngfuncs.pfnGetLevelName());
 	//m_pImage->LoadImage("gfx/vgui/radars/crossfire.tga");
-
 }
 
 
@@ -324,7 +325,7 @@ bool HACK_GetPlayerUniqueID( int iPlayer, char playerID[16] )
 {
 	return !!gEngfuncs.GetPlayerUniqueID( iPlayer, playerID );
 }
-		
+
 //-----------------------------------------------------------------------------
 // Purpose: Recalculate the internal scoreboard data
 //-----------------------------------------------------------------------------
@@ -333,9 +334,31 @@ void ScorePanel::Update()
 	// Set the title
 	if (gViewPort->m_szServerName)
 	{
-		char sz[MAX_SERVERNAME_LENGTH + 16];
-		sprintf(sz, "%s", gViewPort->m_szServerName );
-		m_TitleLabel.setText("OpenGG64 v6.0 PERSONAL");
+		//char sz[MAX_SERVERNAME_LENGTH + 16];
+		//sprintf(sz, "%s", gViewPort->m_szServerName );
+		//srand( time(NULL) );
+		randnum = rand()%5;
+		switch(randnum){
+			case 0:
+				title = "OpenGG64 v8.5 PERSONAL";
+			break;
+			case 1:
+				title = "OpenGG64 v8.5 An OpenGF32 tribute";
+			break;
+			case 2:
+				title = "OpenGG64 v8.5 crushing HL borders";
+			break;
+			case 3:
+				title = "OpenGG64 v8.5 Still hacking!1";
+			break;
+			case 4:
+				title = "OpenGG64 v8.5 GG,WP";
+			break;
+			case 5:
+				title = "OpenGG64 v8.5 Very underrated :(";
+			break;
+		}
+		m_TitleLabel.setText(title);
 	}
 
 	m_iRows = 0;

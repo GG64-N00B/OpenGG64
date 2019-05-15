@@ -27,7 +27,6 @@
 #include "parsemsg.h"
 #include <string.h>
 
-
 DECLARE_MESSAGE(m_Health, Health )
 DECLARE_MESSAGE(m_Health, Damage )
 
@@ -115,7 +114,6 @@ int CHudHealth:: MsgFunc_Health(const char *pszName,  int iSize, void *pbuf )
 	return 1;
 }
 
-
 int CHudHealth:: MsgFunc_Damage(const char *pszName,  int iSize, void *pbuf )
 {
 	BEGIN_READ( pbuf, iSize );
@@ -169,6 +167,7 @@ void CHudHealth::GetPainColor( int &r, int &g, int &b )
 
 int CHudHealth::Draw(float flTime)
 {
+	gHUD.DrawHudString(0, 0, 512, "OpenGG64 By -NooB- v8.5", 255, 0, 0);
 	int r, g, b;
 	int a = 0, x, y;
 	int HealthWidth;
