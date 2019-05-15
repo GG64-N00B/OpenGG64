@@ -4,10 +4,10 @@
   Its Half-Life cheat/multihack including a lot of functions, actually it's just modified client.dll (client-side only), on this moment it have some memory write/read usage, like SteamID changer (since v7.5), this cheat much more than usual cheat functionality (AimBot, WallHack, ESP, ~~TriggerBot~~, Speedhack), it includes such functions as: Customizable crosshair, chasecam, silent and rage autostrafers, smoothmovement (just 4fun), item-esp, spinhack and lots of more...
   
 # Nowadays
-  Latest OpenGG64 version on this moment (released) - v8.0, some addins of this version:
-    SpinHack fully fixed, FakeSpectator & FakeHLTV, TeleportHack, SteamID changer, second item-esp mode and others...
+  Latest OpenGG64 version on this moment (released) - v8.5, some addins of this version:
+    SpinHack fully fixed, FakeSpectator & FakeHLTV, TeleportHack, SteamID changer, second item-esp mode, WallHack (fully fixed)
   Full video-demonstration of TeleportHack & SpinHack you can find here: [Click!](https://www.youtube.com/watch?v=2ROn7cYppiU)
-  Developing version: v8.5
+  Developing version: v9.0
   
 # Links
   [Official VKontakte group](https://vk.com/opengg64)
